@@ -7,7 +7,7 @@
  *
  * Released under the MIT License
  *
- * Released on: September 14, 2018
+ * Released on: October 19, 2018
  */
 
 (function (global, factory) {
@@ -5485,56 +5485,42 @@
       var swiper = this;
       if (!swiper.params.scrollbar.el) { return; }
       var scrollbar = swiper.scrollbar;
-      var touchEvents = swiper.touchEvents;
+      var touchEventsTouch = swiper.touchEventsTouch;
       var touchEventsDesktop = swiper.touchEventsDesktop;
       var params = swiper.params;
       var $el = scrollbar.$el;
       var target = $el[0];
       var activeListener = Support.passiveListener && params.passiveListeners ? { passive: false, capture: false } : false;
       var passiveListener = Support.passiveListener && params.passiveListeners ? { passive: true, capture: false } : false;
-      if (!Support.touch && (Support.pointerEvents || Support.prefixedPointerEvents)) {
+      if (!Support.touch) {
         target.addEventListener(touchEventsDesktop.start, swiper.scrollbar.onDragStart, activeListener);
         doc.addEventListener(touchEventsDesktop.move, swiper.scrollbar.onDragMove, activeListener);
         doc.addEventListener(touchEventsDesktop.end, swiper.scrollbar.onDragEnd, passiveListener);
       } else {
-        if (Support.touch) {
-          target.addEventListener(touchEvents.start, swiper.scrollbar.onDragStart, activeListener);
-          target.addEventListener(touchEvents.move, swiper.scrollbar.onDragMove, activeListener);
-          target.addEventListener(touchEvents.end, swiper.scrollbar.onDragEnd, passiveListener);
-        }
-        if ((params.simulateTouch && !Device.ios && !Device.android) || (params.simulateTouch && !Support.touch && Device.ios)) {
-          target.addEventListener('mousedown', swiper.scrollbar.onDragStart, activeListener);
-          doc.addEventListener('mousemove', swiper.scrollbar.onDragMove, activeListener);
-          doc.addEventListener('mouseup', swiper.scrollbar.onDragEnd, passiveListener);
-        }
+        target.addEventListener(touchEventsTouch.start, swiper.scrollbar.onDragStart, activeListener);
+        target.addEventListener(touchEventsTouch.move, swiper.scrollbar.onDragMove, activeListener);
+        target.addEventListener(touchEventsTouch.end, swiper.scrollbar.onDragEnd, passiveListener);
       }
     },
     disableDraggable: function disableDraggable() {
       var swiper = this;
       if (!swiper.params.scrollbar.el) { return; }
       var scrollbar = swiper.scrollbar;
-      var touchEvents = swiper.touchEvents;
+      var touchEventsTouch = swiper.touchEventsTouch;
       var touchEventsDesktop = swiper.touchEventsDesktop;
       var params = swiper.params;
       var $el = scrollbar.$el;
       var target = $el[0];
       var activeListener = Support.passiveListener && params.passiveListeners ? { passive: false, capture: false } : false;
       var passiveListener = Support.passiveListener && params.passiveListeners ? { passive: true, capture: false } : false;
-      if (!Support.touch && (Support.pointerEvents || Support.prefixedPointerEvents)) {
+      if (!Support.touch) {
         target.removeEventListener(touchEventsDesktop.start, swiper.scrollbar.onDragStart, activeListener);
         doc.removeEventListener(touchEventsDesktop.move, swiper.scrollbar.onDragMove, activeListener);
         doc.removeEventListener(touchEventsDesktop.end, swiper.scrollbar.onDragEnd, passiveListener);
       } else {
-        if (Support.touch) {
-          target.removeEventListener(touchEvents.start, swiper.scrollbar.onDragStart, activeListener);
-          target.removeEventListener(touchEvents.move, swiper.scrollbar.onDragMove, activeListener);
-          target.removeEventListener(touchEvents.end, swiper.scrollbar.onDragEnd, passiveListener);
-        }
-        if ((params.simulateTouch && !Device.ios && !Device.android) || (params.simulateTouch && !Support.touch && Device.ios)) {
-          target.removeEventListener('mousedown', swiper.scrollbar.onDragStart, activeListener);
-          doc.removeEventListener('mousemove', swiper.scrollbar.onDragMove, activeListener);
-          doc.removeEventListener('mouseup', swiper.scrollbar.onDragEnd, passiveListener);
-        }
+        target.removeEventListener(touchEventsTouch.start, swiper.scrollbar.onDragStart, activeListener);
+        target.removeEventListener(touchEventsTouch.move, swiper.scrollbar.onDragMove, activeListener);
+        target.removeEventListener(touchEventsTouch.end, swiper.scrollbar.onDragEnd, passiveListener);
       }
     },
     init: function init() {
